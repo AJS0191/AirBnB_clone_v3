@@ -1,7 +1,7 @@
 $(function () {
   const amenitiesNames = [];
   const amenitiesDict = {};
-  const url = "http://0.0.0.0:5001/api/v1/places_search/";
+  const url = "http://0.0.0.0:5001/api/v1/status/";
   $.get(url, function (data) {
     $('DIV#api_status').toggleClass('available nok');
   });
@@ -23,22 +23,11 @@ $(function () {
   });
 });
 
-let request = $.ajax({
-	url: "http://b41de8df0b4c.19.hbtn-cod.io:34196/api/v1/places_search/",
-	method: "POST",
-	data: JSON.stringify({}),
-	contentType: "application/json",
-	dataType: "json"
-    })
-
-	.done(function (data) {
-	    data.forEach(function (element) {
-                $('.places').append('<li><a href="' + element.id + '">' + element.name + '</a></li>');
-      });
-    })
-    .fail(function (_jqXHR, textStatus) {
-      alert("Request failed: " + textStatus);
-    });
-
-
-
+$.ajax({
+  url: 'http://0.0.0.0:5001/api/v1/places_search',
+  type: "POST",
+  contentType: "application/json",
+  data: {},
+  dataType: 'JSON',
+  headers: {'Cont'}
+})

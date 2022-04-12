@@ -6,8 +6,18 @@ header {
 }
 header .logo {
     background: url("../images/logo.png") no-repeat;
-    left: 20px;
+    float: left;
     height: 100%;
+    width: 142px;
+}
+#api_status {
+    border: 0px solid;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #CCCCCC;
+    float: right;
+    margin-top: 10px;
 }
 .available {
     background-color: #FF545F;
