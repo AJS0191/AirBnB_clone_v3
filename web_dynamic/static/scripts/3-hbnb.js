@@ -3,8 +3,11 @@ $(function () {
   const amenitiesDict = {};
   const url = "http://127.0.0.1:5001/api/v1/status/";
   $.get(url, function (data) {
-    $('DIV#api_status').toggleClass('available nok');
-  });
+    if (data['status'] === 'OK') {
+      console.log("made it past the if");
+      $('DIV#api_status').toggleClass('available');
+    }}
+  );
   $('.amenities ul li input').change(function () {
     if ($(this).is(':checked')) {
       let dataName = ($(this).attr('data-name').replace('_', ' '))
@@ -32,7 +35,6 @@ $.ajax({
 }).done(function (data) {
   //data.sort(function (a, b) { return a.name.localeCompare(b.name); });
   for (const element of data) {
-    console.log(element);
     $('section.places').append(
       $('<article>').html(
         $('<div>').append(
