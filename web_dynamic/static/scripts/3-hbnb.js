@@ -1,7 +1,7 @@
 $(function () {
   const amenitiesNames = [];
   const amenitiesDict = {};
-  const url = "http://0.0.0.0:5001/api/v1/places_search/";
+  const url = "http://0.0.0.0:5001/api/v1/status/";
   $.get(url, function (data) {
     $('DIV#api_status').toggleClass('available nok');
   });
@@ -23,22 +23,40 @@ $(function () {
   });
 });
 
-let request = $.ajax({
-	url: "http://b41de8df0b4c.19.hbtn-cod.io:34196/api/v1/places_search/",
-	method: "POST",
-	data: JSON.stringify({}),
-	contentType: "application/json",
-	dataType: "json"
-    })
-
-	.done(function (data) {
-	    data.forEach(function (element) {
-                $('.places').append('<li><a href="' + element.id + '">' + element.name + '</a></li>');
-      });
-    })
-    .fail(function (_jqXHR, textStatus) {
-      alert("Request failed: " + textStatus);
-    });
-
+$.ajax({
+  url: 'http://0.0.0.0:5001/api/v1/places_search/',
+  type: 'post',
+  contentType: 'application/json',
+  data: '{}',
+  dataType: 'json',
+  headers: {'Content-Type': 'application/json'}
+}).done(function (data) {
+  data.sort(function (a, b) { return a.name.localeCompare(b.name); });
+  for (let i = 0; i < data.length; i++) {
+    $('<article>').append(
+      $('<div>', {'class': 'title'}).append(
+        $('<h2>').text(place.name),
+        $('<div>', {'class': 'price'}).append(
+          $('<span>', {'class': 'currency'}).text('$'),
+          $('<span>', {'class': 'value'}).text(place.price)
+        )
+      ),
+      $('<div>', {'class': 'image'}).append(
+        $('<img>', {'src': place.image_url})
+      ),
+      $('<div>', {'class': 'description'}).append(
+        $('<p>').text(place.description)
+      ),
+      $('<div>', {'class': 'amenities'}).append(
+        $('<h4>').text('&nbsp;'),
+        $('<ul>').append(
+          $('<li>').append(
+            $('<input>', {'type': 'checkbox', 'data-id': place.id, 'data-name': place.name})
+          )
+        )
+      )
+    ).appendTo('section#places');
+  }
+});
 
 
