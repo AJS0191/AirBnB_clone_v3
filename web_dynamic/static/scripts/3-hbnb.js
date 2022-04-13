@@ -35,17 +35,17 @@ $.ajax({
   for (let i = 0; i < data.length; i++) {
     $('<article>').append(
       $('<div>', {'class': 'title'}).append(
-        $('<h2>').text(place.name),
+        $('<h2>').text(data[i]['name']
         $('<div>', {'class': 'price'}).append(
           $('<span>', {'class': 'currency'}).text('$'),
-          $('<span>', {'class': 'value'}).text(place.price)
+          $('<span>', {'class': 'value'}).text(data[i]['price_by_night'])
         )
       ),
       $('<div>', {'class': 'image'}).append(
         $('<img>', {'src': place.image_url})
       ),
       $('<div>', {'class': 'description'}).append(
-        $('<p>').text(place.description)
+        $('<p>').text(data[i]['description'])
       ),
       $('<div>', {'class': 'amenities'}).append(
         $('<h4>').text('&nbsp;'),
