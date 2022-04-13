@@ -28,3 +28,4 @@ api/v1/views/__pycache__/places.cpython-38.pyc
 api/v1/views/__pycache__/states.cpython-38.pyc
 api/v1/views/__pycache__/users.cpython-38.pyc
 api/__pycache__/__init__.cpython-38.pyc
+*.pyc
