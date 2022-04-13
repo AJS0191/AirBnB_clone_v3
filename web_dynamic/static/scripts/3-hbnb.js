@@ -1,7 +1,7 @@
 $(function () {
   const amenitiesNames = [];
   const amenitiesDict = {};
-  const url = "http://0.0.0.0:5001/api/v1/status/";
+  const url = "http://127.0.0.1:5001/api/v1/status/";
   $.get(url, function (data) {
     $('DIV#api_status').toggleClass('available nok');
   });
@@ -24,39 +24,25 @@ $(function () {
 });
 
 $.ajax({
-  url: 'http://0.0.0.0:5001/api/v1/places_search/',
+  url: 'http://127.0.0.1:5001/api/v1/places_search/',
   type: 'post',
   contentType: 'application/json',
   data: '{}',
-  dataType: 'json',
-  headers: {'Content-Type': 'application/json'}
 }).done(function (data) {
-  data.sort(function (a, b) { return a.name.localeCompare(b.name); });
+  //data.sort(function (a, b) { return a.name.localeCompare(b.name); });
   for (let i = 0; i < data.length; i++) {
-    $('<article>').append(
-      $('<div>', {'class': 'title'}).append(
-        $('<h2>').text(data[i]['name']
-        $('<div>', {'class': 'price'}).append(
-          $('<span>', {'class': 'currency'}).text('$'),
-          $('<span>', {'class': 'value'}).text(data[i]['price_by_night'])
-        )
-      ),
-      $('<div>', {'class': 'image'}).append(
-        $('<img>', {'src': place.image_url})
-      ),
-      $('<div>', {'class': 'description'}).append(
-        $('<p>').text(data[i]['description'])
-      ),
-      $('<div>', {'class': 'amenities'}).append(
-        $('<h4>').text('&nbsp;'),
-        $('<ul>').append(
-          $('<li>').append(
-            $('<input>', {'type': 'checkbox', 'data-id': place.id, 'data-name': place.name})
-          )
-        )
-      )
-    ).appendTo('section#places');
-  }
-});
-
-
+    console.log(data[i]);
+    $('section.places').append(
+      $('<article>').html(
+        $('<div>').append(
+          $('<div>', {'class': 'title_box'}).append(
+            $('<h2>').text(data[i]['name']),
+            $('<div>', {'class': 'price_by_night'}).text('$' + data[i]['price_by_night'])),
+          $('<div>', {'class': 'information'}).append(
+            $('<div>', {'class': 'max_guest'}).text(data[i]['max_guest'] + ' Guests'),
+            $('<div>', {'class': 'number_rooms'}).text(data[i]['number_rooms'] + ' Bedrooms'),
+            $('<div>', {'class': 'number_bathrooms'}).text(data[i]['number_bathrooms'] + ' Bathrooms')),
+          $('<div>', {'class': 'user'}).append(
+            $('<div>', {'class': "description"}).html(data[i]['description']))
+        )))
+  }});
