@@ -7,7 +7,8 @@ $(function () {
   });
   $('.amenities ul li input').change(function () {
     if ($(this).is(':checked')) {
-      amenitiesNames.push($(this).attr('data-name'));
+      let dataName = ($(this).attr('data-name').replace('_', ' '))
+      amenitiesNames.push(dataName);
       amenitiesDict[$(this).attr('data-id')] = $(this).attr('data-name');
     } else {
       const pos = amenitiesNames.indexOf($(this).attr('data-name'));
