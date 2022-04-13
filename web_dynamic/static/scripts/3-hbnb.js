@@ -30,19 +30,19 @@ $.ajax({
   data: '{}',
 }).done(function (data) {
   //data.sort(function (a, b) { return a.name.localeCompare(b.name); });
-  for (let i = 0; i < data.length; i++) {
-    console.log(data[i]);
+  for (const element of data) {
+    console.log(element);
     $('section.places').append(
       $('<article>').html(
         $('<div>').append(
           $('<div>', {'class': 'title_box'}).append(
-            $('<h2>').text(data[i]['name']),
-            $('<div>', {'class': 'price_by_night'}).text('$' + data[i]['price_by_night'])),
+            $('<h2>').text(element['name']),
+            $('<div>', {'class': 'price_by_night'}).text('$' + element['price_by_night'])),
           $('<div>', {'class': 'information'}).append(
-            $('<div>', {'class': 'max_guest'}).text(data[i]['max_guest'] + ' Guests'),
-            $('<div>', {'class': 'number_rooms'}).text(data[i]['number_rooms'] + ' Bedrooms'),
-            $('<div>', {'class': 'number_bathrooms'}).text(data[i]['number_bathrooms'] + ' Bathrooms')),
+            $('<div>', {'class': 'max_guest'}).text(element['max_guest'] + ' Guests'),
+            $('<div>', {'class': 'number_rooms'}).text(element['number_rooms'] + ' Bedrooms'),
+            $('<div>', {'class': 'number_bathrooms'}).text(element['number_bathrooms'] + ' Bathrooms')),
           $('<div>', {'class': 'user'}).append(
-            $('<div>', {'class': "description"}).html(data[i]['description']))
+            $('<div>', {'class': "description"}).html(element['description']))
         )))
   }});
