@@ -17,7 +17,7 @@ $(function () {
       $('.amenities h4').html('&nbsp;');
     } else {
       $('.amenities h4').text(amenitiesNames.join(', '));
-      amenitiesClicked = amenitiesNames;
+      amenitiesClicked = amenitiesDict;
     }
   });
 });
@@ -73,43 +73,28 @@ $.ajax({
 $(document).ready(function() {
   $('#buttonTag').click(function (){
     console.log("I got clicked")
-    $('section.places').replaceWith('');
+    $('.places > article').remove();
     $.ajax({
       url: 'http://127.0.0.1:5001/api/v1/places_search/',
       type: 'post',
       contentType: 'application/json',
-      data: '{}',
+      data: JSON.stringify({ amenities: Object.keys(amenitiesClicked)}),
     }).done(function (data) {
-      for (const element in data){
-        console.log(element["place_amenity"])
-        let arr1 = element["place_amenity"]
-        let arr2 = amenitiesClicked;
-        let counter = 0
-          let arr = [];  // Array to contain match elements
-          for(let i=0 ; i<arr1.length ; ++i) {
-            for(let j=0 ; j<arr2.length ; ++j) {
-              if(arr1[i] == arr2[j]) {    // If element is in both the arrays
-                counter++;        // Push to arr array
-              }
-              if (counter === amenitiesClicked.length) {
-                counter = 0;
-                $('section.places').append(
-                  $('<article>').html(
-                    $('<div>').append(
-                      $('<div>', {'class': 'title_box'}).append(
-                        $('<h2>').text(element['name']),
-                        $('<div>', {'class': 'price_by_night'}).text('$' + element['price_by_night'])),
-                      $('<div>', {'class': 'information'}).append(
-                        $('<div>', {'class': 'max_guest'}).text(element['max_guest'] + ' Guests'),
-                        $('<div>', {'class': 'number_rooms'}).text(element['number_rooms'] + ' Bedrooms'),
-                        $('<div>', {'class': 'number_bathrooms'}).text(element['number_bathrooms'] + ' Bathrooms')),
-                      $('<div>', {'class': 'user'}).append(
-                        $('<div>', {'class': "description"}).html(element['description'])))))
-              } else {
-                counter = 0;
-            }
-          }
-        }
+      console.log(data);
+      for (const element of data) {
+        console.log(element);
+        $('section.places').append(
+          $('<article>').html(
+            $('<div>').append(
+              $('<div>', {'class': 'title_box'}).append(
+                $('<h2>').text(element['name']),
+                $('<div>', {'class': 'price_by_night'}).text('$' + element['price_by_night'])),
+              $('<div>', {'class': 'information'}).append(
+                $('<div>', {'class': 'max_guest'}).text(element['max_guest'] + ' Guests'),
+                $('<div>', {'class': 'number_rooms'}).text(element['number_rooms'] + ' Bedrooms'),
+                $('<div>', {'class': 'number_bathrooms'}).text(element['number_bathrooms'] + ' Bathrooms')),
+              $('<div>', {'class': 'user'}).append(
+                $('<div>', {'class': "description"}).html(element['description']))
+            )))
       }
-    })
-  })})
+    })})});
