@@ -20,5 +20,5 @@ header .logo {
     margin-top: 10px;
 }
 .available {
-    background-color: #FF545F;
+    background-color: #FF545F !important;
 }

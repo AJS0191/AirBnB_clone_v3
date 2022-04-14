@@ -30,6 +30,19 @@ $(function () {
 //       $('DIV#api_status').removeClass('available');
 //     }
 //   });
+$.ajax({
+  url: "http://127.0.0.1:5001/api/v1/status/",
+  type: 'get',
+  contentType: 'application/json',
+  data: '{}'
+}).done(function (response) {
+  console.log(response)
+  if (response.status === 'OK') {
+    $('#api_status').removeAttr("background-color")
+    $('#api_status').addClass('available')
+    console.log("I made it passed the if")
+  }
+})
 
 
 $.ajax({
@@ -53,4 +66,5 @@ $.ajax({
           $('<div>', {'class': 'user'}).append(
             $('<div>', {'class': "description"}).html(element['description']))
         )))
-  }});
+  }
+});
