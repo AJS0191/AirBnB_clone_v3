@@ -2,6 +2,7 @@ $(function () {
   const amenitiesNames = [];
   const amenitiesDict = {};
   const url = "http://127.0.0.1:5001/api/v1/status/";
+
   $.get(url, function (response) {
     if (response.status === 'ok') {
       $('DIV#api_status').addClass('available');
@@ -9,6 +10,8 @@ $(function () {
       $('DIV#api_status').removeClass('available');
     }
   });
+});
+
   $('.amenities ul li input').change(function () {
     if ($(this).is(':checked')) {
       let dataName = ($(this).attr('data-name').replace('_', ' '))
@@ -26,7 +29,8 @@ $(function () {
       $('.amenities h4').text(amenitiesNames.join(', '));
     }
   });
-});
+
+
 
 $.ajax({
   url: 'http://127.0.0.1:5001/api/v1/places_search/',
